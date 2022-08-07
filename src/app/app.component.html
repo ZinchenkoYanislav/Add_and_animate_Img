@@ -1,21 +1,27 @@
-<div style="text-align: center">
-	<h3 *ngIf="!url">{{header}}</h3>
+<div class="margin">
+  <h3 *ngIf="!url">{{ header }}</h3>
   <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
-  <div>
+  <div class="divForImg">
     <img
+      *ngIf="url"
       class="{{ animationOnImg }}"
+      [style.margin-left.px]="animationsForm.value.x_Axis"
+      [style.margin-top.px]="animationsForm.value.y_Axis"
       style="width: 300px; height: 300px"
       [src]="url"
-      *ngIf="url"
     />
   </div>
   <p>
     <input type="file" (change)="selectFile($event)" />
   </p>
   <form *ngIf="url" [formGroup]="animationsForm">
-	<h3>Добавить Анимацию</h3>
+    <h3>Add animation</h3>
     <div>
-      <select formControlName="animations" class="input_select" (change)="OnChange1()">
+      <select
+        formControlName="animations"
+        class="inputSelect"
+        (change)="OnChange1()"
+      >
         <ng-container *ngFor="let animation of animationsArr">
           <option value="{{ animation.name }}">
             {{ animation.name }}
@@ -23,5 +29,10 @@
         </ng-container>
       </select>
     </div>
+    <h3>Change position</h3>
+    <span>X</span>
+    <input class="inputNumber" type="number" formControlName="x_Axis" />
+    <span>Y</span>
+    <input class="inputNumber" type="number" formControlName="y_Axis" />
   </form>
 </div>

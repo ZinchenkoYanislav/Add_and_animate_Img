@@ -7,10 +7,8 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  header = 'Добавьте картинку'
-
+  header = 'Add Image';
   animationsForm!: FormGroup;
-
   url: any;
   msg = '';
   animationOnImg = '';
@@ -19,12 +17,14 @@ export class AppComponent {
     { name: 'animated flash' },
     { name: 'animated pulse' },
     { name: 'animated rubberBand' },
-	{ name: 'animated shake' },
+    { name: 'animated shake' },
   ];
 
   ngOnInit(): void {
     this.animationsForm = new FormGroup({
       animations: new FormControl('1'),
+      x_Axis: new FormControl(0),
+      y_Axis: new FormControl(0),
     });
   }
 
@@ -37,7 +37,7 @@ export class AppComponent {
     let mimeType = event.target.files[0].type;
 
     if (mimeType.match(/image\/*/) == null) {
-      this.msg = 'Поддерживаются только картинки';
+      this.msg = 'Must be only image';
       return;
     }
 
@@ -51,7 +51,6 @@ export class AppComponent {
   }
 
   OnChange1() {
-    console.log(this.animationsForm.value.animations);
     (this.animationOnImg = ''),
       (this.animationOnImg = this.animationsForm.value.animations);
   }
